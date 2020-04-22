@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="155" height="155" viewBox="0 0 155 155">
+  <g id="Logo" transform="translate(-88 -302)">
+    <line id="Línea_24" data-name="Línea 24" x1="53" transform="translate(130.5 330.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <line id="Línea_25" data-name="Línea 25" y1="95" transform="translate(131.5 329.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <circle id="Elipse_23" data-name="Elipse 23" cx="4.5" cy="4.5" r="4.5" transform="translate(182 326)" fill="#fff"/>
+    <circle id="Elipse_24" data-name="Elipse 24" cx="4.5" cy="4.5" r="4.5" transform="translate(127 424)" fill="#fff"/>
+    <circle id="Elipse_25" data-name="Elipse 25" cx="4.5" cy="4.5" r="4.5" transform="translate(175 335)" fill="#fff"/>
+    <line id="Línea_26" data-name="Línea 26" x1="34" transform="translate(141.5 339.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <line id="Línea_27" data-name="Línea 27" y1="77" transform="translate(141.5 338.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <circle id="Elipse_26" data-name="Elipse 26" cx="4.5" cy="4.5" r="4.5" transform="translate(137 415)" fill="#fff"/>
+    <circle id="Elipse_27" data-name="Elipse 27" cx="4.5" cy="4.5" r="4.5" transform="translate(166 360)" fill="#fff"/>
+    <line id="Línea_28" data-name="Línea 28" x1="52" transform="translate(114.5 364.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <circle id="Elipse_28" data-name="Elipse 28" cx="4.5" cy="4.5" r="4.5" transform="translate(111 377)" fill="#fff"/>
+    <line id="Línea_29" data-name="Línea 29" y2="13" transform="translate(115.5 364.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <circle id="Elipse_29" data-name="Elipse 29" cx="4.5" cy="4.5" r="4.5" transform="translate(120 368)" fill="#fff"/>
+    <circle id="Elipse_30" data-name="Elipse 30" cx="4.5" cy="4.5" r="4.5" transform="translate(157 368)" fill="#fff"/>
+    <line id="Línea_30" data-name="Línea 30" x1="30" transform="translate(127.5 372.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <line id="Línea_31" data-name="Línea 31" x1="30" transform="translate(174.5 364.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <line id="Línea_32" data-name="Línea 32" x1="17" transform="translate(179.5 372.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <line id="Línea_33" data-name="Línea 33" y1="52" transform="translate(204.5 363.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <line id="Línea_34" data-name="Línea 34" y2="53" transform="translate(196.5 371.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <line id="Línea_35" data-name="Línea 35" x1="35" transform="translate(182.5 390.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <line id="Línea_36" data-name="Línea 36" y1="10" transform="translate(216.5 389.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <line id="Línea_37" data-name="Línea 37" x1="22" transform="translate(186.5 396.5)" fill="none" stroke="#fff" stroke-width="2"/>
+    <circle id="Elipse_39" data-name="Elipse 39" cx="2.5" cy="2.5" r="2.5" transform="translate(179 388)" fill="#fff"/>
+    <circle id="Elipse_40" data-name="Elipse 40" cx="2.5" cy="2.5" r="2.5" transform="translate(175 370)" fill="#fff"/>
+    <circle id="Elipse_41" data-name="Elipse 41" cx="2.5" cy="2.5" r="2.5" transform="translate(183 394)" fill="#fff"/>
+    <circle id="Elipse_42" data-name="Elipse 42" cx="2.5" cy="2.5" r="2.5" transform="translate(208 394)" fill="#fff"/>
+    <circle id="Elipse_43" data-name="Elipse 43" cx="2.5" cy="2.5" r="2.5" transform="translate(214 398)" fill="#fff"/>
+    <circle id="Elipse_44" data-name="Elipse 44" cx="2.5" cy="2.5" r="2.5" transform="translate(202 415)" fill="#fff"/>
+    <circle id="Elipse_45" data-name="Elipse 45" cx="2.5" cy="2.5" r="2.5" transform="translate(194 424)" fill="#fff"/>
+    <g id="Trazado_1" data-name="Trazado 1" transform="translate(88 302)" fill="none" opacity="0.8">
+      <path d="M77.5,0A77.5,77.5,0,1,1,0,77.5,77.5,77.5,0,0,1,77.5,0Z" stroke="none"/>
+      <path d="M 77.5 4 C 67.57579803466797 4 57.95059204101563 5.942779541015625 48.89170074462891 9.774337768554688 C 44.53738403320313 11.61607360839844 40.33734130859375 13.89581298828125 36.40824890136719 16.55027770996094 C 32.51543426513672 19.18020629882813 28.85468292236328 22.20063781738281 25.52766418457031 25.52766418457031 C 22.20063781738281 28.85468292236328 19.18020629882813 32.51543426513672 16.55027770996094 36.40824890136719 C 13.89581298828125 40.33734130859375 11.61607360839844 44.53738403320313 9.774337768554688 48.89170074462891 C 5.942779541015625 57.95059204101563 4 67.57579803466797 4 77.5 C 4 87.42420196533203 5.942779541015625 97.04940795898438 9.774337768554688 106.1082916259766 C 11.61607360839844 110.4626159667969 13.89581298828125 114.6626586914063 16.55027770996094 118.5917510986328 C 19.18020629882813 122.4845733642578 22.20063781738281 126.1453170776367 25.52766418457031 129.4723358154297 C 28.85468292236328 132.7993621826172 32.51543426513672 135.8197937011719 36.40824890136719 138.4497222900391 C 40.33734130859375 141.1041870117188 44.53738403320313 143.3839263916016 48.89170074462891 145.2256622314453 C 57.95059204101563 149.0572204589844 67.57579803466797 151 77.5 151 C 87.42420196533203 151 97.04940795898438 149.0572204589844 106.1082916259766 145.2256622314453 C 110.4626159667969 143.3839263916016 114.6626586914063 141.1041870117188 118.5917510986328 138.4497222900391 C 122.4845733642578 135.8197937011719 126.1453170776367 132.7993621826172 129.4723358154297 129.4723358154297 C 132.7993621826172 126.1453170776367 135.8197937011719 122.4845733642578 138.4497222900391 118.5917510986328 C 141.1041870117188 114.6626586914063 143.3839263916016 110.4626159667969 145.2256622314453 106.1082916259766 C 149.0572204589844 97.04940795898438 151 87.42420196533203 151 77.5 C 151 67.57579803466797 149.0572204589844 57.95059204101563 145.2256622314453 48.89170074462891 C 143.3839263916016 44.53738403320313 141.1041870117188 40.33734130859375 138.4497222900391 36.40824890136719 C 135.8197937011719 32.51543426513672 132.7993621826172 28.85468292236328 129.4723358154297 25.52766418457031 C 126.1453170776367 22.20063781738281 122.4845733642578 19.18020629882813 118.5917510986328 16.55027770996094 C 114.6626586914063 13.89581298828125 110.4626159667969 11.61607360839844 106.1082916259766 9.774337768554688 C 97.04940795898438 5.942779541015625 87.42420196533203 4 77.5 4 M 77.5 0 C 120.3020629882813 0 155 34.69792938232422 155 77.5 C 155 120.3020629882813 120.3020629882813 155 77.5 155 C 34.69792938232422 155 0 120.3020629882813 0 77.5 C 0 34.69792938232422 34.69792938232422 0 77.5 0 Z" stroke="none" fill="#fff"/>
+    </g>
+  </g>
+</svg>
