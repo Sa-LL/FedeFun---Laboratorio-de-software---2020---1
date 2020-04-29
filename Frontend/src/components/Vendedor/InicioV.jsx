@@ -6,6 +6,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useHistory } from "react-router-dom";
+import Copyright from "../Copyright";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -15,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   img: {
-    marginBottom: "10%",
-    marginTop: "-30%",
+    width: "200px",
+    height: "200px",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
@@ -51,13 +54,27 @@ export default function InicioV(props) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <img
-          // className={classes.img}
-          src={require("../../iconos/Logo.png")}
-          alt="logo"
-        />
+        {/* <input
+      accept="image/*"
+      className={classes.input}
+      id="contained-button-file"
+      multiple
+      type="file"
+      /> */}
+        <label htmlFor="contained-button-file">
+          <IconButton>
+            <Avatar
+              src="../../iconos/Logo.png"
+              style={{
+                margin: "10px",
+                width: "100px",
+                height: "100px",
+              }}
+            />
+          </IconButton>
+        </label>
         <Typography className={classes.text} component="h1" variant="h5">
-          Bienvenido
+          Bienvenido, {sessionStorage.getItem("usuario")}
         </Typography>
         <form className={classes.form} noValidate>
           <Button
@@ -91,6 +108,7 @@ export default function InicioV(props) {
             Desconectarse
           </Button>
         </form>
+        <Copyright />
       </div>
     </Container>
   );

@@ -9,7 +9,8 @@ import ProtectedRoute from "./components/Routes/ProtectedRoute";
 import InicioV from "./components/Vendedor/InicioV";
 import ListaProductosV from "./components/Vendedor/ListaProductosV";
 import InicioS from "./components/Supervisor/InicioS";
-
+import InicioA from "./components/Admin/InicioA";
+import Factura from "./components/Vendedor/Factura";
 const useStyles = makeStyles({
   root: {
     background: teal[300],
@@ -53,10 +54,11 @@ function App() {
           path="/listaProductos"
           component={ListaProductosV}
         />
+        <ProtectedRoute exact path="/factura" component={Factura} />
         <ProtectedRoute exact path="/inicioS" component={InicioS} />
+        <ProtectedRoute exact path="/inicioA" component={InicioA} />
         {/* <Route exact path="/lista" render ={(props) <ListaProductos {...props} data={data}/>} /> */}
       </Router>
-
       {/* <DatosC /> */}
       {/* <DatosV /> */}
     </Grid>

@@ -12,6 +12,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { useHistory } from "react-router-dom";
+import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   iconMargin: {
-    margin: theme.spacing(1),
     marginLeft: "-5%",
   },
   iconForward: {
@@ -48,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
   text: {
     paddingLeft: "10%",
     paddingTop: "10%",
+  },
+  off: {
+    marginLeft: "70%",
   },
 }));
 
@@ -68,6 +71,9 @@ function DatosC() {
     correo: "",
     telefono: "",
   });
+  const handleLogout = () => {
+    history.push("/");
+  };
 
   const changerRadio = (e) => {
     setSelected(e.target.value);
@@ -113,6 +119,13 @@ function DatosC() {
         className={classes.iconMargin}
       >
         <ArrowBackIosIcon fontSize="large" />
+      </IconButton>
+      <IconButton
+        className={classes.off}
+        onClick={handleLogout}
+        color="inherit"
+      >
+        <PowerSettingsNewIcon />
       </IconButton>
       <Typography className={classes.text} component="h1" variant="h5">
         Datos del cliente

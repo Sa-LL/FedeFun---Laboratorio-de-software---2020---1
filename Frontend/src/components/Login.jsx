@@ -3,8 +3,7 @@ import axios from "axios";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
-import Box from "@material-ui/core/Box";
+
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -13,16 +12,8 @@ import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { RadioGroup } from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit">FedeFun</Link> {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import ErrorIcon from "@material-ui/icons/Error";
+import Copyright from "./Copyright";
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -44,27 +35,35 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   text: {
-    marginTop: "10%",
+    marginTop: "5%",
+    marginBottom: "5%",
     textAlign: "center",
   },
   icono: {
     marginTop: "10%",
   },
-  copyright: {
-    marginTop: "5px",
-    paddingBottom: "5%",
-  },
   radio: {
     placeContent: "center",
     paddingTop: "5%",
+  },
+  error: {
+    display: "flex",
+    marginRight: "auto",
+  },
+  errorText: {
+    marginLeft: "10px",
+    color: "#f44336",
+  },
+  copyright: {
+    marginTop: "-20%",
   },
 }));
 
 export default function Login(props) {
   const history = useHistory();
-
   const [selected, setSelected] = useState("vendedor");
-
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState("");
   const classes = useStyles();
   const [log, setLog] = useState({
     username: "",
@@ -87,7 +86,6 @@ export default function Login(props) {
     config.headers.Authorization = token;
     return config;
   });
-
   const handleClick = () => {
     axios
       .post("http://localhost:4000/login", log)
@@ -95,25 +93,47 @@ export default function Login(props) {
         if (res.status === 200) {
           props.handleLogin();
           if (selected === "vendedor") {
+            sessionStorage.setItem("usuario", log.username);
             history.push("/inicioV");
-          } else if (selected === "supervisor") history.push("inicioS");
+          } else if (selected === "supervisor") history.push("/inicioS");
+          else if (selected === "administrador") history.push("/inicioA");
         }
         sessionStorage.setItem("token", res.data.token);
         // axios.defaults.headers.common["Authorization"] =
         //   "Bearer " + res.data.token;
       })
       .catch((err) => {
-        console.log(err);
+        let status = err.message.split(" ").splice(-1)[0];
+        if (status === "400") {
+          //setTextDialog("Rol de usuario incorrecto");
+          setOpen(true);
+          setText("Rol de usuario incorrecto");
+        } else if (status === "404") {
+          setOpen(true);
+          setText("Datos incorrectos");
+          //setTextDialog("Datos incorrectos");
+        }
       });
   };
   return (
     <Container className={classes.main} component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <img src={require("../iconos/Logo.png")} alt="logo" />
+        <img
+          src={require("../iconos/techworld.png")}
+          alt="techworld"
+          height="40%"
+          width="40%"
+        />
         <Typography className={classes.text} component="h1" variant="h5">
-          Bienvenido a la aplicación de FedeFun
+          Techworld
         </Typography>
+        {open ? (
+          <div className={classes.error}>
+            <ErrorIcon color="error" />
+            <Typography className={classes.errorText}>{text}</Typography>
+          </div>
+        ) : null}
         <form className={classes.form} noValidate>
           <TextField
             margin="normal"
@@ -209,9 +229,9 @@ export default function Login(props) {
           </Button>
         </form>
       </div>
-      <Box className={classes.copyright} mt={8}>
+      <div className={classes.copyright}>
         <Copyright />
-      </Box>
+      </div>
     </Container>
   );
 }

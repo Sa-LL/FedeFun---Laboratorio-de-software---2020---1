@@ -11,8 +11,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import IconButton from "@material-ui/core/IconButton";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
+import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,14 +24,18 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginLeft: "70%",
   },
-  iconMargin: {
-    margin: theme.spacing(1),
-  },
   iconForward: {
     background: "#FFFFFF",
     margin: theme.spacing(1),
     "&:hover, &.Mui-focusVisible": { backgroundColor: "#FFFFFF" },
     marginLeft: "100%",
+  },
+  off: {
+    marginLeft: "70%",
+  },
+  upperBar: {
+    marginBottom: "10%",
+    marginTop: "10%",
   },
 }));
 
@@ -40,6 +44,9 @@ export default function ListaProductosV() {
   let contador = 1;
   // Estilos
   const classes = useStyles();
+  const handleLogout = () => {
+    history.push("/");
+  };
 
   const [factura, setFactura] = useState({
     cliente: {
@@ -88,37 +95,29 @@ export default function ListaProductosV() {
 
   //Siguiente
 
-  axios.interceptors.request.use(function (config) {
-    const token = "Bearer " + sessionStorage.getItem("token");
-    config.headers.Authorization = token;
-    return config;
-  });
-
   const goForward = () => {
     if (factura.productos.length) {
       console.log(factura);
-      axios
-        .post("http://localhost:4000/factura", factura)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      sessionStorage.setItem("factura", JSON.stringify(factura));
     }
-    history.push("/inicioV");
+    history.push("/factura");
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <IconButton
-        onClick={() => history.push("/datosC")}
-        aria-label="back"
-        className={classes.iconMargin}
-      >
-        <ArrowBackIosIcon fontSize="large" />
-      </IconButton>
+      <div className={classes.upperBar}>
+        <IconButton onClick={() => history.push("/datosC")} aria-label="back">
+          <ArrowBackIosIcon fontSize="large" />
+        </IconButton>
+        <IconButton
+          className={classes.off}
+          onClick={handleLogout}
+          color="inherit"
+        >
+          <PowerSettingsNewIcon />
+        </IconButton>
+      </div>
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
           Productos
