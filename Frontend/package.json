@@ -1,5 +1,7 @@
 {
   "name": "version1",
+  "homepage": "./",
+  "main": "./electron/main.js",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -17,10 +19,13 @@
     "typeface-roboto": "0.0.75"
   },
   "scripts": {
+    "dev": "concurrently \"npm start\" \"wait-on http://localhost:5000 && npm run electron\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "ebuild": "npm run build && node_modules/.bin/build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,5 +41,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^9.0.1",
+    "electron-builder": "^22.7.0",
+    "electron-is-dev": "^1.2.0",
+    "wait-on": "^5.0.0"
   }
 }
