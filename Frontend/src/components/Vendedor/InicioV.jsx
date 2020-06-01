@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
@@ -9,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import Copyright from "../Copyright";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,22 +33,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function InicioV(props) {
+export default function InicioV() {
   const history = useHistory();
   const classes = useStyles();
-
   useEffect(() => {
     axios
-      .get("http://localhost:5000/list", {
+      .get("http://localhost:3000/list", {
         params: {},
       })
       .then((res) => {
-        props.handleLista(res.data);
+        //props.handleLista(res.data);
+        sessionStorage.setItem("list", JSON.stringify(res.data))
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [props]);
+  }, []);
 
   return (
     <Container component="main" maxWidth="xs">

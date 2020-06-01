@@ -96,6 +96,24 @@ export default function Orders({ promesa }) {
   return (
     <React.Fragment>
       <MaterialTable
+        localization={{
+          header: {
+            actions: 'Acciones'
+          },
+          toolbar: {
+            searchPlaceholder: 'Búsqueda',
+            searchTooltip: 'Búsqueda'
+          },
+          pagination: {
+            labelRowsSelect: 'filas'
+          },
+          body: {
+            emptyDataSourceMessage: 'No hay información para mostrar',
+            addTooltip: 'Añadir',
+            deleteTooltip: 'Eliminar',
+            editTooltip: 'Editar'
+          }
+        }}
         title={<Title>Usuarios</Title>}
         columns={state.columns}
         data={state.data}
