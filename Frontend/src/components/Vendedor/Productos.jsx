@@ -9,6 +9,7 @@ import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import Input from "@material-ui/core/Input";
 import Typography from "@material-ui/core/Typography";
+import ClearIcon from '@material-ui/icons/Clear';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,9 +50,13 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "right",
     marginTop: "-5%",
   },
+  delete: {
+    float: "right",
+    marginBottom: "-5%",
+  },
 }));
 
-export default function Productos({ handleDataProd, contador, index }) {
+export default function Productos({ handleDataProd, contador }) {
   const [tipo, setTipo] = useState("");
   const [flag, setFlag] = useState(false);
   const [dataJson, setDataJson] = useState({
@@ -102,6 +107,7 @@ export default function Productos({ handleDataProd, contador, index }) {
   //   handleDataProd(dataJson, contador);
   //   console.log(dataJson);
   // }
+
   useEffect(() => {
     // handleJson("amount", count.toString());
     handleDataProd(dataJson, contador);
@@ -114,6 +120,19 @@ export default function Productos({ handleDataProd, contador, index }) {
     <Card className={classes.root}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
+          <IconButton
+            aria-label="delete"
+            className={classes.delete}
+            size="small"
+          // onClick={() => {
+          //   if (count > 0) {
+          //     setCount(count - 1);
+          //     handleJson("amount", count - 1);
+          //   }
+          // }}
+          >
+            <ClearIcon />
+          </IconButton>
           <Tipo tipoP={handleTipo} />
           <div className={classes.productDetails}>
             <Card className={classes.product}>

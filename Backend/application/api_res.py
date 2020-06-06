@@ -104,6 +104,8 @@ class FacturApi(Resource):
 
     @jwt_required
     def post(self):
+        if get_jwt_claims().get("role") != "vendedor":
+            return make_response(jsonify({"Error":"Este tipo de usuario no puede crear facturas"}), 401)
         data = json.loads(request.data.decode())
         p = get_products(data["productos"])
         fac = Factura(

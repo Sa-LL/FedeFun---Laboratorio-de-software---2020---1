@@ -28,10 +28,12 @@ const useStyles = makeStyles((theme) => ({
     background: "#FFFFFF",
     margin: theme.spacing(1),
     "&:hover, &.Mui-focusVisible": { backgroundColor: "#FFFFFF" },
-    marginLeft: "100%",
+    float: "right",
+    marginTop: "10%",
+    marginBottom: "10%",
   },
   off: {
-    marginLeft: "70%",
+    float: "right",
   },
   upperBar: {
     marginBottom: "10%",
@@ -59,7 +61,7 @@ export default function ListaProductosV() {
     productos: [],
     fecha: `${new Date().getDate()}-${
       new Date().getMonth() + 1
-    }-${new Date().getFullYear()}`,
+      }-${new Date().getFullYear()}`,
     lugar: [0, 0],
   });
   // Controlador para el arreglo de json de los productos

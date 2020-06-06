@@ -29,17 +29,68 @@ export default function Orders({ promesa, flag }) {
   });
 
   useEffect(() => {
-    console.log(flag);
-    axios
-      .get("http://localhost:4000/factura", {
-        params: promesa,
-      })
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    var count = 0;
+    var objeto = {};
+    Object.keys(promesa).forEach(function (key) {
+      if (promesa[key].estado === true) {
+        count += 1;
+        if (key === "precio") {
+          objeto = {
+            ...objeto,
+            "productos__price__lte": promesa[key].valor.superior,
+            "productos__price__gte": promesa[key].valor.inferior
+          }
+        }
+        else if (key === "total") {
+          objeto = {
+            ...objeto,
+            "total__lte": promesa[key].valor.superior,
+            "total__gte": promesa[key].valor.inferior
+          }
+        }
+        else {
+          objeto = {
+            ...objeto,
+            [key]: promesa[key].valor
+          }
+        }
+        // objeto = {...objeto, [key] : }
+      }
+    });
+    if (count === 0) {
+      axios
+        .get("http://localhost:4000/factura", {
+          params: { recents: "" },
+        })
+        .then((res) => {
+          setData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .get("http://localhost:4000/factura", {
+          params: objeto,
+        })
+        .then((res) => {
+          setData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    // for (var i = 0; i < 9; i++) {
+    //   if (promesa[i].estado === true) {
+    //     count = 1;
+    //   }
+    // }
+    // if (count === 0) {
+
+    // } else {
+    //   console.log("")
+    // }
   }, [flag]);
 
   const classes = useStyles();

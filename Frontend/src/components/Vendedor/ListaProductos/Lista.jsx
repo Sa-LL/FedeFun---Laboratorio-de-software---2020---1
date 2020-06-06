@@ -21,7 +21,7 @@ export default function Lista({ tipoProd, handleAsign, handleFlag }) {
   const [open, setOpen] = useState(false);
 
   // Sacar los datos de la "base de datos externa" que están en el almacenamiento de sesión
-  const lista = JSON.parse(sessionStorage.getItem("data"));
+  const lista = JSON.parse(sessionStorage.getItem("list"));
 
   // Controlador del "select" y asignacion del nombre para el JSON
   const handleChange = (event) => {
@@ -64,16 +64,16 @@ export default function Lista({ tipoProd, handleAsign, handleFlag }) {
         >
           {tipoProd
             ? lista[tipoProd].map((item, index) => (
-                <MenuItem
-                  key={index}
-                  value={item.nombre}
-                  data-item-id={item.id}
-                  data-item-price={item.precio}
-                  data-item-brand={item.marca}
-                >
-                  {item.nombre}
-                </MenuItem>
-              ))
+              <MenuItem
+                key={index}
+                value={item.nombre}
+                data-item-id={item.id}
+                data-item-price={item.precio}
+                data-item-brand={item.marca}
+              >
+                {item.nombre}
+              </MenuItem>
+            ))
             : null}
         </Select>
       </FormControl>
