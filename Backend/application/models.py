@@ -25,6 +25,15 @@ class User(me.Document): #Modelo de datos para los vendedores
     email = me.EmailField(required=True, unique = True)
     address = me.StringField(required=True)
     type = me.StringField(required = True) #Vendedor o Supervisor
+    enabled = me.BooleanField(required = True, default = True)
+
+    @queryset_manager
+    def alive(doc_cls, queryset):
+        return queryset.filter(enabled=True)
+
+    @queryset_manager
+    def disabled(doc_cls, queryset):
+        return queryset.filter(enabled=False)
 
     def set_password(self, password):
         self.password = bcrypt.generate_password_hash(password)

@@ -8,15 +8,15 @@ import json
 
 adm_bp = Blueprint("adm_bp", __name__)
 
-class Admin(me.Document):
-    username = me.StringField(primary_key = True, required = True)
-    password = me.StringField(required = True)
-
 def get_args(args):
     # Para poner los datos de creación del usuario en formato de mapeo (Diccionario)
     res = {}
+    pre = ["username","internal_id","external_id","email","address","telefono","nombre"]
     for arg in args:
-        res[arg] = args[arg]
+        if arg in pre:
+            res[arg+"__contains"] = args[arg]
+        else:
+            res[arg] = args[arg]
     return res
 
 def get_data(args):
@@ -32,6 +32,8 @@ def get_data(args):
 class UsersApi(Resource):
     @jwt_required
     def get(self):
+        if get_jwt_claims().get("role") != "administrador":
+            return make_response(jsonify({"Error":"No autorizado"}), 401)
         req = get_args(request.args)
         try:
             res = User.objects(**req)
@@ -41,6 +43,8 @@ class UsersApi(Resource):
 
     @jwt_required
     def post(self):
+        if get_jwt_claims().get("role") != "administrador":
+            return make_response(jsonify({"Error":"No autorizado"}), 401)
         data = json.loads(request.data.decode())
         user = User(
             internal_id = getNextId("users_id"),
@@ -58,6 +62,8 @@ class UsersApi(Resource):
 
     @jwt_required
     def put(self):
+        if get_jwt_claims().get("role") != "administrador":
+            return make_response(jsonify({"Error":"No autorizado"}), 401)
         req = request.args
         args = json.loads(request.data.decode())
         try:

@@ -132,73 +132,72 @@ export default function InicioS() {
   const history = useHistory();
   const classes = useStyles();
   const [open, setOpen] = useState(true);
+
+  //Barra lateral izquierda
   const handleDrawerOpen = () => {
     setOpen(true);
   };
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  const [promesa, setPromesa] = useState({
-    recents: "",
+  //////////////////////////////////////
+  //Consultas (empieza en las recientes)
+  const [filtroActivo, setFiltroActivo] = useState({
+    vendedor: {
+      estado: false,
+      valor: "",
+    },
+    cliente: {
+      estado: false,
+      valor: "",
+    },
+    productos__tp: {
+      estado: false,
+      valor: "",
+    },
+    productos__brand: {
+      estado: false,
+      valor: "",
+    },
+    productos__name: {
+      estado: false,
+      valor: "",
+    },
+    precio: {
+      estado: false,
+      valor: {
+        superior: "",
+        inferior: "",
+      },
+      rango: true,
+    },
+    total: {
+      estado: false,
+      valor: {
+        superior: "",
+        inferior: "",
+      },
+      rango: true,
+    },
+    fecha: {
+      estado: false,
+      valor: new Date(`${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`),
+      // `${new Date().getDate()}-${
+      //   new Date().getMonth() + 1
+      //   }-${new Date().getFullYear()}`
+    },
+    lugar: {
+      estado: false,
+      valor: "",
+    },
   });
-  const [flag, setFlag] = useState(false);
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-  const handleValue = (value, name) => {
-    setPromesa((prom) => {
-      var promCopy = { ...prom, [name]: value };
-      if (promCopy.recents === "") {
-        const { recents: tmp, ...rest } = promCopy;
-        return rest;
-      } else {
-        return promCopy;
-      }
-    });
-  };
+  ///////////////////////////////////////
 
-  const [filtros, setFiltros] = useState([
-    <Filtros
-      placehold="Vendedor..."
-      handleValue={handleValue}
-      nombre="vendedor"
-      index={0}
-    />,
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-  ]);
-  const handleButton = (boton, activar, placehold, nombre) => {
-    let filtrosCopy = [...filtros];
-    if (activar) {
-      filtrosCopy[boton] = (
-        <Filtros
-          placehold={placehold}
-          handleValue={handleValue}
-          nombre={nombre}
-          index={boton}
-        />
-      );
-    } else {
-      const { [nombre]: tmp, ...rest } = promesa;
-      setPromesa({ ...rest });
-      filtrosCopy[boton] = <div></div>;
-    }
-    setFiltros(filtrosCopy);
-  };
+  const [flag, setFlag] = useState(false);
+
   const handleLogout = () => {
     history.push("/");
   };
-  // useEffect(() => {
-  //   setPromesa({
-  //     [vendedor.nombre]: vendedor.value,
-  //     [cliente.nombre]: cliente.value,
-  //   });
-  // }, [vendedor, cliente]);
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -247,26 +246,13 @@ export default function InicioS() {
         </div>
         <Divider />
         <List>
-          <ListItems handleButton={handleButton} />
+          <ListItems filtroActivo={filtroActivo} setFiltroActivo={setFiltroActivo} />
         </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            {/* Chart */}
-            {filtros.map((filtro, id) => (
-              <Grid item xs={6} key={id}>
-                {filtro}
-              </Grid>
-            ))}
-            {/* Recent Deposits */}
-            {/* <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid> */}
-            {/* Recent Orders */}
             <Grid item xs={12}>
               <div className={classes.searchIcon}>
                 <IconButton aria-label="search" onClick={() => setFlag(!flag)}>
@@ -274,7 +260,7 @@ export default function InicioS() {
                 </IconButton>
               </div>
               <Paper className={classes.paper}>
-                <Orders promesa={promesa} flag={flag} />
+                <Orders promesa={filtroActivo} flag={flag} />
               </Paper>
             </Grid>
           </Grid>

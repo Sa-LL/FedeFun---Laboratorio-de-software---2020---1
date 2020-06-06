@@ -30,8 +30,11 @@ class LoginApi(Resource):
         authorized = user.check_password(body.get('password'))
         if not authorized:
             return make_response(jsonify({"error":"Wrong password"}), 401)
-        if user.type!= body["rol"]:
+        if user.type != body.get("rol"):
             return make_response(jsonify({"Error":"Wrong type of user"}), 400)
+        if hasattr(user,"enabled"):
+            if not user.enabled:
+                return make_response(jsonify({"Error":"User disabled"}), 400)
         expires = timedelta(days=7)
         access_token = create_access_token(identity=str(user.username), expires_delta=expires)
         return make_response(jsonify({'token': access_token}), 200)
