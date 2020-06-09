@@ -58,10 +58,7 @@ function App() {
         <ProtectedRoute exact path="/factura" component={Factura} />
         <ProtectedRoute exact path="/inicioS" component={InicioS} />
         <ProtectedRoute exact path="/inicioA" component={InicioA} />
-        {/* <Route exact path="/lista" render ={(props) <ListaProductos {...props} data={data}/>} /> */}
       </Router>
-      {/* <DatosC /> */}
-      {/* <DatosV /> */}
     </Grid>
   );
 }

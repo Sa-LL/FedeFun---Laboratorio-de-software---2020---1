@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,7 +7,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -31,12 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function DialogPrecio({ open, handleClose, titulo, setFiltroActivo, filtroActivo, campo }) {
-    const [checked, setChecked] = useState(true);
     const classes = useStyles();
-
-    const handleChange = () => {
-        setChecked(!checked);
-    }
     return (
         <div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -44,10 +38,21 @@ export default function DialogPrecio({ open, handleClose, titulo, setFiltroActiv
                 <DialogContent>
                     <FormGroup>
                         <FormControlLabel
-                            control={<Switch color="primary" checked={checked} onChange={handleChange} name="checked" />}
+                            control={<Switch
+                                color="primary"
+                                checked={filtroActivo[campo].rango}
+                                onChange={() => setFiltroActivo({
+                                    ...filtroActivo,
+                                    [campo]: {
+                                        ...filtroActivo[campo],
+                                        rango: !filtroActivo[campo].rango,
+                                    }
+                                })}
+                                name="checked"
+                            />}
                             label="Rango de precios"
                         />
-                        {checked ? <div className={classes.rango} ><Grid className={classes.limiteSuperior} container alignItems="flex-end">
+                        {filtroActivo[campo].rango ? <div className={classes.rango} ><Grid className={classes.limiteSuperior} container alignItems="flex-end">
                             <Grid item>
                                 <TextField
                                     id="limite-superior"
@@ -137,7 +142,6 @@ export default function DialogPrecio({ open, handleClose, titulo, setFiltroActiv
                             [campo]: {
                                 ...filtroActivo[campo],
                                 estado: true,
-                                rango: checked
                             }
                         });
                         handleClose();

@@ -14,12 +14,8 @@ import PlaceIcon from "@material-ui/icons/Place";
 import InputBase from "@material-ui/core/InputBase";
 import DialogPrecio from "./Dialog";
 import { makeStyles } from "@material-ui/core/styles";
-import esLocale from "date-fns/locale/es";
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  MuiPickersUtilsProvider,
-  DatePicker,
-} from '@material-ui/pickers';
+import DialogMap from "./Mapa/DialogMap";
+import DialogDate from "./DialogDate";
 
 const useStyles = makeStyles((theme) => ({
   iconoActivado: {
@@ -38,31 +34,59 @@ export default function ListItems({ filtroActivo, setFiltroActivo }) {
 
   const [openP, setOpenP] = useState(false);
   const [openT, setOpenT] = useState(false);
+  const [openD, setOpenD] = useState(false);
+  const [openMap, setOpenMap] = useState(false);
 
   const handleClickOpenP = () => {
-    setOpenP(true)
+    setOpenP(true);
   };
 
   const handleClickOpenT = () => {
     setOpenT(true);
   }
 
+  const handleClickOpenD = () => {
+    setOpenD(true);
+  }
+
   const handleCloseT = () => {
     setOpenT(false);
   }
   const handleCloseP = () => {
-    setOpenP(false)
+    setOpenP(false);
   };
+  const handleCloseD = () => {
+    setOpenD(false);
+  };
+  const handleMapOpen = () => {
+    setOpenMap(true);
+  }
 
-  const handleDateChange = (date) => {
+  const handleMapClose = () => {
+    setOpenMap(false);
+  }
+
+  const handleConfirm = () => {
+    setOpenMap(false);
     setFiltroActivo({
       ...filtroActivo,
-      fecha: {
-        ...filtroActivo.fecha,
-        valor: date
+      lugar: {
+        ...filtroActivo.lugar,
+        estado: true,
       }
     })
   }
+
+  const handleCoordenadas = (longitud, latitud) => {
+    setFiltroActivo({
+      ...filtroActivo, lugar: {
+        ...filtroActivo.lugar,
+        longitud: longitud,
+        latitud: latitud,
+      },
+    });
+  }
+
 
   return (
     <div>
@@ -202,20 +226,21 @@ export default function ListItems({ filtroActivo, setFiltroActivo }) {
         <ListItemIcon onClick={() => setFiltroActivo({ ...filtroActivo, fecha: { ...filtroActivo.fecha, estado: !filtroActivo.fecha.estado } })}>
           <DateRangeIcon />
         </ListItemIcon>
-        {filtroActivo.fecha.estado ?
-          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
+
+        {/* <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
             <DatePicker
               value={filtroActivo.fecha.valor}
               InputProps={{
                 disableUnderline: true
               }}
               onChange={handleDateChange}
-              format="MM/dd/yyyy"
+              format="dd/MM/yyyy"
 
             />
-          </MuiPickersUtilsProvider> :
-          <ListItemText onClick={() => setFiltroActivo({ ...filtroActivo, fecha: { ...filtroActivo.fecha, estado: true } })} primary="Fecha" />
-        }
+          </MuiPickersUtilsProvider> */}
+        <ListItemText onClick={handleClickOpenD} primary="Fecha" />
+        <DialogDate open={openD} handleClose={handleCloseD} setFiltroActivo={setFiltroActivo} filtroActivo={filtroActivo} />
+
 
       </ListItem>
 
@@ -228,7 +253,8 @@ export default function ListItems({ filtroActivo, setFiltroActivo }) {
         <ListItemIcon onClick={() => setFiltroActivo({ ...filtroActivo, lugar: { ...filtroActivo.lugar, estado: !filtroActivo.lugar.estado } })} >
           <PlaceIcon />
         </ListItemIcon>
-        <ListItemText primary="Lugar" />
+        <ListItemText onClick={handleMapOpen} primary="Lugar" />
+        <DialogMap open={openMap} handleClose={handleMapClose} handleConfirm={handleConfirm} handleCoordenadas={handleCoordenadas} />
       </ListItem>
     </div>
   );

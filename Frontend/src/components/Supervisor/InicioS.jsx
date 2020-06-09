@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
-import Box from "@material-ui/core/Box";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
@@ -21,6 +20,14 @@ import Filtros from "./Filtros";
 import SearchIcon from "@material-ui/icons/Search";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import { useHistory } from "react-router-dom";
+import Button from '@material-ui/core/Button';
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import TocIcon from '@material-ui/icons/Toc';
+import RoomIcon from '@material-ui/icons/Room';
+import ReactMapGL, { Marker } from "react-map-gl";
+import axios from "axios";
+
 // function Copyright() {
 //   return (
 //     <Typography variant="body2" color="textSecondary" align="center">
@@ -126,6 +133,23 @@ const useStyles = makeStyles((theme) => ({
   searchIcon: {
     textAlign: "center",
   },
+  buttonGroup: {
+    textAlign: "center",
+    marginTop: "3%",
+    marginBottom: "4%",
+  },
+  paperMap: {
+    padding: theme.spacing(2),
+    display: "flex",
+    marginTop: "5%",
+    height: "70vh",
+    position: "relative",
+  },
+  largeIcon: {
+    '& svg': {
+      fontSize: 30
+    }
+  },
 }));
 
 export default function InicioS() {
@@ -146,22 +170,27 @@ export default function InicioS() {
     vendedor: {
       estado: false,
       valor: "",
+      key: 0,
     },
     cliente: {
       estado: false,
       valor: "",
+      key: 1,
     },
     productos__tp: {
       estado: false,
       valor: "",
+      key: 2,
     },
     productos__brand: {
       estado: false,
       valor: "",
+      key: 3,
     },
     productos__name: {
       estado: false,
       valor: "",
+      key: 4,
     },
     precio: {
       estado: false,
@@ -170,6 +199,7 @@ export default function InicioS() {
         inferior: "",
       },
       rango: true,
+      key: 5,
     },
     total: {
       estado: false,
@@ -178,26 +208,168 @@ export default function InicioS() {
         inferior: "",
       },
       rango: true,
+      key: 6,
     },
     fecha: {
       estado: false,
-      valor: new Date(`${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}`),
+      valor: {
+        superior: new Date(),
+        inferior: new Date(),
+      },
+      rango: true,
       // `${new Date().getDate()}-${
       //   new Date().getMonth() + 1
       //   }-${new Date().getFullYear()}`
+
+      key: 7,
     },
     lugar: {
       estado: false,
-      valor: "",
+      longitud: 0,
+      latitud: 0,
+      key: 8,
     },
   });
   ///////////////////////////////////////
 
+  const [display, setDisplay] = useState('table');
+
+  const handleDisplay = (event, newDisplay) => {
+    if (newDisplay !== null) {
+      setDisplay(newDisplay);
+    }
+  }
+
   const [flag, setFlag] = useState(false);
+
+  const [viewport, SetViewport] = useState({
+    latitude: 4.813415,
+    longitude: -75.699704,
+    zoom: 13,
+  });
 
   const handleLogout = () => {
     history.push("/");
   };
+
+
+
+  ///////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////
+  const [data, setData] = useState([]);
+
+  axios.interceptors.request.use(function (config) {
+    const token = "Bearer " + sessionStorage.getItem("token");
+    config.headers.Authorization = token;
+    return config;
+  });
+
+  useEffect(() => {
+    let count = 0;
+    let objeto = {};
+    console.log(filtroActivo)
+    Object.keys(filtroActivo).forEach(function (key) {
+      if (filtroActivo[key].estado === true) {
+        count += 1;
+        if (key === "precio") {
+          if (filtroActivo[key].rango) {
+            objeto = {
+              ...objeto,
+              "productos__price__lte": filtroActivo[key].valor.superior,
+              "productos__price__gte": filtroActivo[key].valor.inferior
+            }
+          } else {
+            objeto = {
+              ...objeto,
+              "productos__price": filtroActivo[key].valor.superior
+            }
+          }
+
+        }
+        else if (key === "total") {
+          if (filtroActivo[key].rango) {
+            objeto = {
+              ...objeto,
+              "total__lte": filtroActivo[key].valor.superior,
+              "total__gte": filtroActivo[key].valor.inferior
+            }
+          } else {
+            objeto = {
+              ...objeto,
+              "total": filtroActivo[key].valor.superior,
+            }
+          }
+
+        }
+        else if (key === "fecha") {
+          if (filtroActivo[key].rango) {
+            objeto = {
+              ...objeto,
+              "fecha__lt": filtroActivo[key].valor.superior,
+              "fecha__gte": filtroActivo[key].valor.inferior
+            }
+          } else {
+            objeto = {
+              ...objeto,
+              "fecha": filtroActivo[key].valor.superior
+            }
+          }
+        }
+        else if (key === "lugar") {
+          objeto = {
+            ...objeto,
+            "longitud": filtroActivo[key].longitud,
+            "latitud": filtroActivo[key].latitud
+          }
+        }
+        else {
+          objeto = {
+            ...objeto,
+            [key]: filtroActivo[key].valor
+          }
+        }
+        // objeto = {...objeto, [key] : }
+      }
+    });
+    if (count === 0) {
+      axios
+        .get("http://localhost:4000/factura", {
+          params: { recents: "" },
+        })
+        .then((res) => {
+          setData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .get("http://localhost:4000/factura", {
+          params: objeto,
+        })
+        .then((res) => {
+          setData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    // for (var i = 0; i < 9; i++) {
+    //   if (filtroActivo[i].estado === true) {
+    //     count = 1;
+    //   }
+    // }
+    // if (count === 0) {
+
+    // } else {
+    //   console.log("")
+    // }
+  }, [flag]);
+
+
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -246,7 +418,7 @@ export default function InicioS() {
         </div>
         <Divider />
         <List>
-          <ListItems filtroActivo={filtroActivo} setFiltroActivo={setFiltroActivo} />
+          <ListItems filtroActivo={filtroActivo} setFiltroActivo={setFiltroActivo} handleDrawerOpen={handleDrawerOpen} />
         </List>
       </Drawer>
       <main className={classes.content}>
@@ -254,14 +426,68 @@ export default function InicioS() {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
+              <Filtros filtroActivo={filtroActivo} setFiltroActivo={setFiltroActivo} />
+              <div className={classes.buttonGroup}>
+                <ToggleButtonGroup
+                  value={display}
+                  exclusive
+                  onChange={handleDisplay}
+                  aria-label="data display"
+                >
+                  <ToggleButton value="table" aria-label="table">
+                    <TocIcon />
+                  </ToggleButton>
+                  <ToggleButton value="map" aria-label="map">
+                    <RoomIcon />
+                  </ToggleButton>
+                </ToggleButtonGroup></div>
+
               <div className={classes.searchIcon}>
-                <IconButton aria-label="search" onClick={() => setFlag(!flag)}>
-                  <SearchIcon />
-                </IconButton>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  endIcon={<SearchIcon />}
+                  onClick={() => setFlag(!flag)}
+                >Buscar</Button>
               </div>
-              <Paper className={classes.paper}>
-                <Orders promesa={filtroActivo} flag={flag} />
-              </Paper>
+              {display === 'table' ? <Paper className={classes.paper}>
+                <Orders data={data} />
+              </Paper> :
+                <Paper
+                  className={classes.paperMap}
+                >
+                  {/* <MapaFacturas parentDimensions={dimensions} /> */}
+                  <ReactMapGL
+                    {...viewport}
+                    width="100%"
+                    height="100%"
+                    mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+                    onViewportChange={viewport => {
+                      SetViewport(viewport);
+                    }}
+                    mapStyle="mapbox://styles/mapbox/streets-v11"
+                  >
+                    {
+                      Object.keys(data).map(function (nombre) {
+                        return (<Marker key={data[nombre]._id}
+                          longitude={data[nombre].lugar.coordinates[0]}
+                          latitude={data[nombre].lugar.coordinates[1]}
+                          offsetLeft={-41}
+                          offsetTop={-65}
+                        >
+                          <IconButton
+                            className={classes.largeIcon}
+                          >
+                            <RoomIcon color="secondary" />
+                          </IconButton>
+                        </Marker>)
+                      }
+                      )
+                    }
+                  </ReactMapGL>
+                </Paper>
+              }
+
             </Grid>
           </Grid>
           {/* <Box pt={4}>

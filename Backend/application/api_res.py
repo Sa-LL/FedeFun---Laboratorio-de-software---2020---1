@@ -17,9 +17,16 @@ def get_args(args):
     # Función para dar formato de MongoEngine a la consulta de facturas
     d = {}
     attr = ["productos__tp", "productos__brand", "productos__name",
-        "productos__price__gte", "productos__price__lte", "total__gte",
-        "total__lte", "total"]
+        "productos__price__gte", "productos__price__lte", "productos__price", "total__gte",
+        "total__lte", "total", "fecha__lt", "fecha__gte"]
     try:
+        fs = [float(args.pop("longitud","")),args.pop("latitud","")]
+        mxd = args.pop("max_distance","")
+        if fs[0] != "" and fs[1] != "":
+            d["lugar__near"] = [float(fs[0]),float(fs[1])]
+            d["lugar__max_distance"] = 5000
+        if mxd != "":
+            d["lugar__max_distance"] = float(mxd)
         for arg in args:
             # if not hasattr(Factura, arg):
             #     raise KeyError("Can't find attribute: "+arg)
@@ -27,10 +34,6 @@ def get_args(args):
                 d[arg] = User.objects.get(username = args[arg])
             elif arg == "cliente" and args[arg] != "":
                 d[arg+"__name"] = args[arg]
-            elif arg == "lugar" and arg != "":
-                fs = args.getlist(arg)
-                if fs[0] != "" and fs[1] != "":
-                    d["lugar__near"] = args.getlist(arg)
             elif arg == "fecha":
                 l = args.getlist(arg)
                 date_st = parse(l[0])
