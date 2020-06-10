@@ -17,6 +17,8 @@ import PeopleIcon from "@material-ui/icons/People";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import DateRangeIcon from "@material-ui/icons/DateRange";
 import AccessibilityIcon from "@material-ui/icons/Accessibility";
+import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
+import PlaceIcon from "@material-ui/icons/Place";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -65,7 +67,6 @@ export default function DialogDate({ open, handleClose, data }) {
             >
                 <DialogTitle id="form-dialog-title">Factura</DialogTitle>
                 <DialogContent>
-                    {console.log(data)}
                     {data.cliente ?
                         <List className={classes.root}>
                             <Divider component="li" />
@@ -166,6 +167,21 @@ export default function DialogDate({ open, handleClose, data }) {
                                 )
                             }
                             )}
+                            <ListItem>
+                                <ListItemIcon>
+                                    <AssignmentTurnedInIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Total"
+                                    secondary={`$${data.total}`} />
+                            </ListItem>
+                            <ListItem>
+                                <ListItemIcon>
+                                    <PlaceIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Ubicación"
+                                    secondary={`Longitud: ${data.lugar.coordinates[0]},
+                                                latitud: ${data.lugar.coordinates[1]}`} />
+                            </ListItem>
                         </List> : null}
 
                 </DialogContent>

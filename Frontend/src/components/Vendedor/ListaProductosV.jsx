@@ -68,6 +68,7 @@ export default function ListaProductosV() {
   const handleDataProd = (data, index) => {
     let dataProdCopy = [...dataProd];
     dataProdCopy[index] = data;
+    //console.log(dataProdCopy[index].amount)
     setDataProd(dataProdCopy);
     // setDataProd(dataProd.concat(data));
   };
@@ -92,14 +93,26 @@ export default function ListaProductosV() {
   useEffect(() => {
     let facturaCopy = { ...factura };
     facturaCopy.productos = dataProd;
+    // facturaCopy.productos[0] && console.log(facturaCopy.productos[0].amount)
     setFactura(facturaCopy);
   }, [dataProd]);
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(pos => {
+      setFactura({
+        ...factura,
+        lugar: [pos.coords.longitude, pos.coords.latitude]
+      })
+    });
+  }, [])
 
   //Siguiente
 
   const goForward = () => {
+    // let facturaCopy = { ...factura};
+    // facturaCopy.productos = dataProd;
     if (factura.productos.length) {
-      console.log(factura);
+      console.log(factura.productos[0].amount);
       sessionStorage.setItem("factura", JSON.stringify(factura));
     }
     history.push("/factura");

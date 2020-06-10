@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#FFFFFF",
     margin: theme.spacing(1),
     "&:hover, &.Mui-focusVisible": { backgroundColor: "#FFFFFF" },
-    marginLeft: "100%",
+    float: "right",
   },
 }));
 
@@ -50,7 +50,7 @@ function Factura() {
 
   const handleFacturar = () => {
     axios
-      .post("http://localhost:4000/factura", factura)
+      .post("https://fedefun.herokuapp.com/factura", factura)
       .then((res) => {
         console.log(res);
         history.push("/InicioV");
@@ -62,12 +62,11 @@ function Factura() {
 
   return (
     <div>
-      <IconButton aria-label="back" className={classes.iconMargin}>
-        <ArrowBackIosIcon fontSize="large" />
-      </IconButton>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-
+        <IconButton aria-label="back" className={classes.iconMargin} onClick={() => history.push("/listaProductos")}>
+          <ArrowBackIosIcon fontSize="large" />
+        </IconButton>
         <Typography component="h1" variant="h5">
           Factura
         </Typography>
@@ -115,6 +114,13 @@ function Factura() {
               fullWidth
               label="Fecha"
               defaultValue={factura.fecha}
+              disabled
+            />
+            <TextField
+              margin="normal"
+              fullWidth
+              label="Lugar"
+              defaultValue={factura.lugar}
               disabled
             />
             {factura.productos.map((item, index) => (

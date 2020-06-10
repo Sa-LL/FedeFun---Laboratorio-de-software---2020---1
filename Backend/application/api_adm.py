@@ -25,7 +25,12 @@ def get_data(args):
     for arg in args:
         if not hasattr(User, arg):
             raise KeyError("Invalid Attribute for user:",arg)
-        d["set__"+arg] = args[arg]
+        if arg == "type":
+            d["set__"+arg+"__"] = args[arg]
+        elif arg == "password":
+            d["set__password"] = bcrypt.generate_password_hash(args[arg]).decode()
+        else:
+            d["set__"+arg] = args[arg]
     return d
 
 
@@ -36,7 +41,7 @@ class UsersApi(Resource):
             return make_response(jsonify({"Error":"No autorizado"}), 401)
         req = get_args(request.args)
         try:
-            res = User.objects(**req)
+            res = User.alive(**req)
         except User.DoesNotExist:
             return make_response(jsonify({"Error": "Not found", "message":"The user does not exist"}), 404)
         return make_response(jsonify(res), 200)
@@ -64,7 +69,9 @@ class UsersApi(Resource):
     def put(self):
         if get_jwt_claims().get("role") != "administrador":
             return make_response(jsonify({"Error":"No autorizado"}), 401)
-        req = request.args
+        req = {}
+        for i in request.args:
+            req[i]=request.args[i]
         args = json.loads(request.data.decode())
         try:
             user = User.objects(**req).first()

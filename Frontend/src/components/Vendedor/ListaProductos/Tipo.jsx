@@ -48,7 +48,7 @@ export default function Tipo({ tipoP }) {
           <MenuItem value="Celular">Celular</MenuItem>
           <MenuItem value="Tablet">Tablet</MenuItem>
           <MenuItem value="Televisor">Televisor</MenuItem>
-          <MenuItem value="Portatil">Portátil</MenuItem>
+          <MenuItem value="Laptop">Laptop</MenuItem>
           <MenuItem value="PC">Computador de mesa</MenuItem>
         </Select>
       </FormControl>

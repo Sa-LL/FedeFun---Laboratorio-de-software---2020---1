@@ -16,24 +16,17 @@ class NotAuthorized(Exception):
 def get_args(args):
     # Función para dar formato de MongoEngine a la consulta de facturas
     d = {}
-    attr = ["productos__tp", "productos__brand", "productos__name",
-        "productos__price__gte", "productos__price__lte", "productos__price", "total__gte",
-        "total__lte", "total", "fecha__lt", "fecha__gte"]
+    attr = ["productos__price__gte", "productos__price__lte", "productos__price", "total__gte",
+        "total__lte", "total"]
+    pttr = ["productos__tp", "productos__brand", "productos__name"]
     try:
-        fs = [float(args.pop("longitud","")),args.pop("latitud","")]
-        mxd = args.pop("max_distance","")
-        if fs[0] != "" and fs[1] != "":
-            d["lugar__near"] = [float(fs[0]),float(fs[1])]
-            d["lugar__max_distance"] = 5000
-        if mxd != "":
-            d["lugar__max_distance"] = float(mxd)
         for arg in args:
             # if not hasattr(Factura, arg):
             #     raise KeyError("Can't find attribute: "+arg)
             if arg == "vendedor" and args[arg] != "":
-                d[arg] = User.objects.get(username = args[arg])
+                d[arg] = User.objects.get(internal_id = args[arg])
             elif arg == "cliente" and args[arg] != "":
-                d[arg+"__name"] = args[arg]
+                d[arg+"__name__contains"] = args[arg]
             elif arg == "fecha":
                 l = args.getlist(arg)
                 date_st = parse(l[0])
@@ -52,8 +45,18 @@ def get_args(args):
                 date_en = date_st + rd(**p)
                 d["fecha__gte"] = date_st
                 d["fecha__lt"] = date_en
+            elif arg == "fecha__lt" or arg == "fecha__gte":
+                if args[arg] != "":
+                    d[arg] = parse(args[arg])
+            elif arg == "longitud" or arg =="latitud":
+                fs = [args.get("longitud",""),args.get("latitud","")]
+                if fs[0] != "" and fs[1] != "":
+                    d["lugar__near"] = [float(fs[0]),float(fs[1])]
+                    d["lugar__max_distance"] = args.get("max_distance",5000)
             elif arg in attr and args[arg] != "":
                 d[arg] = args[arg]
+            elif arg in pttr and args[arg] != "":
+                d[arg+"__contains"] = args[arg]
             else:
                 raise KeyError("Can't find attribute: " + arg)
     except TypeError as e:

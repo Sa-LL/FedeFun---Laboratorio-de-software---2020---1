@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 import Title from "./Title";
 import axios from "axios";
 import MaterialTable from "material-table";
-import TextField from "@material-ui/core/TextField";
 import Input from "@material-ui/core/Input";
 
 function preventDefault(event) {
@@ -73,7 +66,7 @@ export default function Orders({ promesa }) {
   useEffect(() => {
     console.log(flag);
     axios
-      .get("http://localhost:4000/users", {})
+      .get("https://fedefun.herokuapp.com/users", {})
       .then((res) => {
         console.log(res);
         setState((prevState) => {
@@ -121,7 +114,7 @@ export default function Orders({ promesa }) {
         editable={{
           onRowAdd: ({ _id: temp, ...sendData }) =>
             axios
-              .post("http://localhost:4000/users", {
+              .post("https://fedefun.herokuapp.com/users", {
                 ...sendData,
                 password: password,
               })
@@ -137,6 +130,32 @@ export default function Orders({ promesa }) {
             new Promise((resolve) => {
               setTimeout(() => {
                 resolve();
+                let objeto = {}
+                if (sendData.address.localeCompare(oldData.address) != 0) {
+                  objeto = { ...objeto, "address": sendData.address }
+                }
+                if (sendData.username.localeCompare(oldData.username) != 0) {
+                  objeto = { ...objeto, "username": sendData.username }
+                }
+                if (sendData.password.localeCompare(oldData.password) != 0) {
+                  objeto = { ...objeto, "password": sendData.password }
+                }
+                if (sendData.telefono.localeCompare(oldData.telefono) != 0) {
+                  objeto = { ...objeto, "telefono": sendData.telefono }
+                }
+                if ("".localeCompare(password) != 0) {
+                  objeto = { ...objeto, "password": password }
+                }
+                if (sendData.nombre.localeCompare(oldData.nombre) != 0) {
+                  objeto = { ...objeto, "nombre": sendData.nombre }
+                }
+                if (sendData.email.localeCompare(oldData.email) != 0) {
+                  objeto = { ...objeto, "email": sendData.email }
+                }
+                if (sendData.type.localeCompare(oldData.type) != 0) {
+                  objeto = { ...objeto, "type": sendData.type }
+                }
+                //objeto = { ...objeto, "address": sendData.address }
                 // if (oldData) {
                 //   setState((prevState) => {
                 //     const data = [...prevState.data];
@@ -145,20 +164,28 @@ export default function Orders({ promesa }) {
                 //   });
                 // }
                 //const { _id: temp, ...sendData } = newData;
-                console.log(sendData);
-              }, 600);
+                axios
+                  .put(`https://fedefun.herokuapp.com/users?username=${oldData.username}`, objeto)
+                  .then((res) => {
+                    //console.log(res);
+                    setFlag(!flag);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    console.log(sendData);
+                  });
+              }, 1000);
             }),
           onRowDelete: (oldData) =>
-            new Promise((resolve) => {
-              setTimeout(() => {
-                resolve();
-                setState((prevState) => {
-                  const data = [...prevState];
-                  data.splice(data.indexOf(oldData), 1);
-                  return { ...prevState, data };
-                });
-              }, 600);
-            }),
+            axios
+              .put(`https://fedefun.herokuapp.com/users?username=${oldData.username}`, { "enabled": false })
+              .then((res) => {
+                //console.log(res);
+                setFlag(!flag);
+              })
+              .catch((err) => {
+                console.log(err);
+              }),
         }}
       />
 

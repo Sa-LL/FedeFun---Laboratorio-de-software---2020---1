@@ -25,7 +25,7 @@ class User(me.Document): #Modelo de datos para los vendedores
     email = me.EmailField(required=True, unique = True)
     address = me.StringField(required=True)
     type = me.StringField(required = True) #Vendedor o Supervisor
-    enabled = me.BooleanField(required = True, default = True)
+    enabled = me.BooleanField(default = True)
 
     @queryset_manager
     def alive(doc_cls, queryset):

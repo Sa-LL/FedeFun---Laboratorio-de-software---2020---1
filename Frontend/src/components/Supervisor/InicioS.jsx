@@ -27,6 +27,7 @@ import TocIcon from '@material-ui/icons/Toc';
 import RoomIcon from '@material-ui/icons/Room';
 import ReactMapGL, { Marker } from "react-map-gl";
 import axios from "axios";
+import DialogFactura from "./DialogoFactura/DialogFactura";
 
 // function Copyright() {
 //   return (
@@ -248,6 +249,19 @@ export default function InicioS() {
     zoom: 13,
   });
 
+
+  const [selectedMap, setSelectedMap] = useState({});
+
+  const [openFactura, setOpenFactura] = useState(false);
+
+  const handleCloseFactura = () => {
+    setOpenFactura(false);
+  }
+
+  const handleOpenFactura = () => {
+    setOpenFactura(true);
+  }
+
   const handleLogout = () => {
     history.push("/");
   };
@@ -268,7 +282,6 @@ export default function InicioS() {
   useEffect(() => {
     let count = 0;
     let objeto = {};
-    console.log(filtroActivo)
     Object.keys(filtroActivo).forEach(function (key) {
       if (filtroActivo[key].estado === true) {
         count += 1;
@@ -306,8 +319,8 @@ export default function InicioS() {
           if (filtroActivo[key].rango) {
             objeto = {
               ...objeto,
-              "fecha__lt": filtroActivo[key].valor.superior,
-              "fecha__gte": filtroActivo[key].valor.inferior
+              "fecha__lt": filtroActivo[key].valor.inferior,
+              "fecha__gte": filtroActivo[key].valor.superior
             }
           } else {
             objeto = {
@@ -322,6 +335,11 @@ export default function InicioS() {
             "longitud": filtroActivo[key].longitud,
             "latitud": filtroActivo[key].latitud
           }
+        } else if (key === "vendedor") {
+          objeto = {
+            ...objeto,
+            "username": filtroActivo[key].valor
+          }
         }
         else {
           objeto = {
@@ -334,7 +352,7 @@ export default function InicioS() {
     });
     if (count === 0) {
       axios
-        .get("http://localhost:4000/factura", {
+        .get("https://fedefun.herokuapp.com/factura", {
           params: { recents: "" },
         })
         .then((res) => {
@@ -345,7 +363,7 @@ export default function InicioS() {
         });
     } else {
       axios
-        .get("http://localhost:4000/factura", {
+        .get("https://fedefun.herokuapp.com/factura", {
           params: objeto,
         })
         .then((res) => {
@@ -477,6 +495,10 @@ export default function InicioS() {
                         >
                           <IconButton
                             className={classes.largeIcon}
+                            onClick={() => {
+                              setSelectedMap(data[nombre]);
+                              handleOpenFactura();
+                            }}
                           >
                             <RoomIcon color="secondary" />
                           </IconButton>
@@ -486,8 +508,9 @@ export default function InicioS() {
                     }
                   </ReactMapGL>
                 </Paper>
-              }
 
+              }
+              <DialogFactura open={openFactura} handleClose={handleCloseFactura} data={selectedMap} />
             </Grid>
           </Grid>
           {/* <Box pt={4}>

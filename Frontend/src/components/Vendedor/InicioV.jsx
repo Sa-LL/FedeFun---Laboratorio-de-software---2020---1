@@ -38,7 +38,7 @@ export default function InicioV() {
   const classes = useStyles();
   useEffect(() => {
     axios
-      .get("http://localhost:3000/list", {
+      .get("https://productos-json.herokuapp.com/list", {
         params: {},
       })
       .then((res) => {
