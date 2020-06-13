@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2020-01-06" view-index="0" gantt-divider-location="621" resource-divider-location="300" version="2.8.10" locale="es_CO">
+    <description/>
+    <view zooming-state="default:7" id="gantt-chart">
+        <field id="tpd3" name="Nombre" width="280" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="169" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="168" order="2"/>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nombre" width="210" order="0"/>
+        <field id="1" name="Función" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="1. Entrega de documento de levantamiento de requerimientos" color="#8cb6ce" meeting="false" start="2020-02-05" duration="16" complete="0" thirdDate="2020-02-24" thirdDate-constraint="0" expand="false">
+            <depend id="49" type="2" difference="0" hardness="Strong"/>
+            <task id="51" name="1.1 Levantar requerimientos" color="#8cb6ce" meeting="false" start="2020-02-05" duration="6" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true">
+                <depend id="60" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="60" name="1.2 Analizar requerimientos" color="#8cb6ce" meeting="false" start="2020-02-13" duration="2" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true">
+                <depend id="61" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="61" name="1.3 Especificar de requerimientos" color="#8cb6ce" meeting="false" start="2020-02-17" duration="3" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true">
+                <depend id="62" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="62" name="1.4 Verificar de requerimientos" color="#8cb6ce" meeting="false" start="2020-02-20" duration="3" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true">
+                <depend id="63" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="63" name="1.5 Aceptar de requerimientos" color="#8cb6ce" meeting="false" start="2020-02-25" duration="2" complete="0" thirdDate="2020-02-24" thirdDate-constraint="0" expand="true">
+                <depend id="145" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="145" name="Hito: Entrega de requerimientos" color="#8cb6ce" meeting="true" start="2020-02-27" duration="0" complete="0" thirdDate="2020-02-03" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="49" name="2. Presentación de arquitectura y primer aplicativo" color="#8cb6ce" meeting="false" start="2020-02-27" duration="25" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="false">
+            <depend id="6" type="2" difference="0" hardness="Strong"/>
+            <depend id="7" type="2" difference="0" hardness="Strong"/>
+            <task id="87" name="2.1 Diseñar diagramas UML" color="#8cb6ce" meeting="false" start="2020-02-27" duration="8" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true">
+                <depend id="90" type="1" difference="0" hardness="Strong"/>
+                <depend id="97" type="2" difference="0" hardness="Strong"/>
+                <task id="94" name="2.1.1 Diseñar diagramas estructurales" color="#8cb6ce" meeting="false" start="2020-02-27" duration="3" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true">
+                    <depend id="95" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="95" name="2.1.2 Diseñar diagramas comportamentales" color="#8cb6ce" meeting="false" start="2020-03-03" duration="5" complete="0" thirdDate="2020-03-02" thirdDate-constraint="1" expand="true">
+                    <depend id="174" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="174" name="Hito: Diseños entregados" color="#8cb6ce" meeting="true" start="2020-03-10" duration="0" complete="0" thirdDate="2020-02-27" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="90" name="2.2 Diseñar vistas" color="#8cb6ce" meeting="false" start="2020-02-27" duration="10" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true">
+                <depend id="97" type="2" difference="0" hardness="Strong"/>
+                <task id="92" name="2.2.1 Diseñar wireframes" color="#8cb6ce" meeting="false" start="2020-02-27" duration="1" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true">
+                    <depend id="91" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="91" name="2.2.2 Diseñar mockup" color="#8cb6ce" meeting="false" start="2020-02-28" duration="7" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true">
+                    <depend id="96" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="96" name="2.2.3 Validar mockup" color="#8cb6ce" meeting="false" start="2020-03-10" duration="2" complete="0" thirdDate="2020-03-03" thirdDate-constraint="0" expand="true">
+                    <depend id="197" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="197" name="Hito: Vistas entregadas" color="#8cb6ce" meeting="true" start="2020-03-12" duration="0" complete="0" thirdDate="2020-02-27" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="97" name="2.3 Desarrollar primer aplicativo" color="#000000" meeting="false" start="2020-03-13" duration="14" complete="0" thirdDate="2020-02-27" thirdDate-constraint="0" expand="true">
+                <task id="98" name="2.3.1 Programar primer aplicativo" color="#8cb6ce" meeting="false" start="2020-03-13" duration="10" complete="0" thirdDate="2020-03-02" thirdDate-constraint="0" expand="true">
+                    <depend id="100" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="100" name="2.3.2 Probar entorno del primer aplicativo" color="#8cb6ce" meeting="false" start="2020-03-27" duration="2" complete="0" thirdDate="2020-02-24" thirdDate-constraint="0" expand="true">
+                    <depend id="99" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="99" name="2.3.3 Desplegar primer aplicativo" color="#8cb6ce" meeting="false" start="2020-03-31" duration="2" complete="0" thirdDate="2020-02-24" thirdDate-constraint="0" expand="true">
+                    <depend id="227" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="227" name="Hito: Aplicativo desarrollado" color="#8cb6ce" meeting="true" start="2020-04-02" duration="0" complete="0" thirdDate="2020-03-12" thirdDate-constraint="0" expand="true"/>
+            </task>
+        </task>
+        <task id="7" name="3. Presentación de documentación" color="#8cb6ce" meeting="false" start="2020-04-16" duration="21" complete="0" thirdDate="2020-02-24" thirdDate-constraint="0" expand="false">
+            <task id="35" name="3.1 Redactar de manual de usuario" color="#8cb6ce" meeting="false" start="2020-04-16" duration="7" complete="0" thirdDate="2020-04-07" thirdDate-constraint="0" expand="true">
+                <depend id="37" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="37" name="3.2 Redactar de manual de instalación" color="#8cb6ce" meeting="false" start="2020-04-27" duration="7" complete="0" thirdDate="2020-04-07" thirdDate-constraint="0" expand="true">
+                <depend id="39" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="39" name="3.3 Redactar de manual administrativo" color="#8cb6ce" meeting="false" start="2020-05-06" duration="7" complete="0" thirdDate="2020-04-07" thirdDate-constraint="0" expand="true">
+                <depend id="239" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="239" name="Hito: Manuales entregados" color="#8cb6ce" meeting="true" start="2020-05-15" duration="0" complete="0" thirdDate="2020-04-02" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="6" name="4. Presentación aplicativo final" color="#8cb6ce" meeting="false" start="2020-04-02" duration="35" complete="0" thirdDate="2020-02-24" thirdDate-constraint="0" expand="false">
+            <task id="21" name="4.1 Desarrollar aplicativo web" color="#8cb6ce" meeting="false" start="2020-04-02" duration="10" complete="0" thirdDate="2020-04-07" thirdDate-constraint="0" expand="true">
+                <depend id="22" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="22" name="4.2 Desarrollar aplicativo móvil" color="#8cb6ce" meeting="false" start="2020-04-16" duration="12" complete="0" thirdDate="2020-04-07" thirdDate-constraint="0" expand="true">
+                <depend id="24" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="24" name="4.3 Desarrollar aplicación de escritorio" color="#8cb6ce" meeting="false" start="2020-05-04" duration="10" complete="0" thirdDate="2020-04-07" thirdDate-constraint="0" expand="true">
+                <depend id="30" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="30" name="4.4 Pruebas del aplicativo" color="#8cb6ce" meeting="false" start="2020-05-18" duration="3" complete="0" thirdDate="2020-02-24" thirdDate-constraint="0" expand="true">
+                <depend id="278" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="278" name="Hito: Entrega y presentación del producto" color="#8cb6ce" meeting="true" start="2020-05-21" duration="0" complete="0" thirdDate="2020-04-02" thirdDate-constraint="0" expand="true"/>
+        </task>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
